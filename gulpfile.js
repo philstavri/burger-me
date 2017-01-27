@@ -40,6 +40,16 @@ gulp.task("html", function(){
         .pipe(gulp.dest(config.buildDir));
 });
 
+gulp.task("watch", function(){
+
+    watch("./src/**/*.html",
+        {},
+        batch(function(events, done){
+            gulp.start("build", done);
+        })
+    );
+});
+
 gulp.task("build", function(cb){
     return runSequence("clean", ["html","scripts:app", "scripts:vendor"], cb);
 });
